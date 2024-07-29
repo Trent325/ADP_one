@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.navbar-nav .nav-link {
+  color: white !important; /* Make the link text white */
+}
+
+.navbar-nav .nav-link:hover {
+  color: #ccc !important; /* Optional: Change color on hover */
+}
+
+/* src/index.css */
+.navbar-brand {
+  color: white !important; /* Make the brand text white */
+}
+
+.navbar-brand:hover {
+  color: #ccc !important; /* Optional: Change color on hover */
+}
