@@ -6,6 +6,7 @@ import { AuthProvider } from "../../contexts/AuthContext";
 import ProtectedRoute from "../auth/ProtectedRoute";
 import Register from "../login/Register";
 import AdminDashboard from "../admin/Dashboard";
+import AdminUsers from "../admin/Users";
 
 function AppRouter() {
   return (
@@ -23,6 +24,10 @@ function AppRouter() {
             <Route
               path="/admin-dashboard"
               element={<ProtectedRoute element={<AdminDashboard />} adminOnly />}
+            />
+             <Route
+              path="/admin-users"
+              element={<ProtectedRoute element={<AdminUsers />} adminOnly />}
             />
           </Routes>
         </div>

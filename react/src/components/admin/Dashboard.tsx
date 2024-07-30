@@ -26,7 +26,7 @@ const AdminDashboard: React.FC = () => {
             <Card.Body>
               <Card.Title>Manage Users</Card.Title>
               <Card.Text>View, add, or remove users from the system.</Card.Text>
-              <Link to="/admin/users">
+              <Link to="/admin-users">
                 <Button variant="primary">Go to Users</Button>
               </Link>
             </Card.Body>
