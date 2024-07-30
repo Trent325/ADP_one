@@ -1,16 +1,39 @@
-// src/components/Login.tsx
 import React, { useState } from 'react';
 import { Form, Button, Container, Row, Col, Alert } from 'react-bootstrap';
+import { useAuth } from '../../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError('');
-    console.log(email, password)
+
+    try {
+      // Replace with your actual login request
+      const response = await fetch('http://localhost:3000/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: email, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        login(data.token);
+        navigate('/Region'); // Use useNavigate for redirection
+      } else {
+        setError(data.message);
+      }
+    } catch (error) {
+      setError('An error occurred');
+      console.error(error);
+    }
   };
 
   return (
@@ -26,7 +49,7 @@ const Login: React.FC = () => {
                 type="email"
                 placeholder="Enter email"
                 value={email}
-                onChange={(e: { target: { value: React.SetStateAction<string>; }; }) => setEmail(e.target.value)}
+                onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </Form.Group>
@@ -37,7 +60,7 @@ const Login: React.FC = () => {
                 type="password"
                 placeholder="Password"
                 value={password}
-                onChange={(e: { target: { value: React.SetStateAction<string>; }; }) => setPassword(e.target.value)}
+                onChange={(e) => setPassword(e.target.value)}
                 required
               />
             </Form.Group>
