@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button, Container, Row, Col, Alert } from 'react-bootstrap';
 import { useAuth } from '../../contexts/AuthContext';
-import { Link } from 'react-router-dom'; 
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -22,17 +21,24 @@ const Login: React.FC = () => {
         body: JSON.stringify({ username: email, password }),
       });
 
-      const data = await response.json();
+      if (!response.ok) {
+        const data = await response.json();
+        setError(data.message || 'Login failed');
+        return;
+      }
 
-      if (response.ok) {
-        login(data.token);
-        navigate('/Region'); // Redirect to the protected page
+      const data = await response.json();
+      login(data.token); // Set token in localStorage and update isAuthenticated state
+      
+      if (data.isAdmin) {
+        navigate('/admin-dashboard'); // Redirect to admin dashboard
       } else {
-        setError(data.message);
+        console.log("in here");
+        navigate('/Region'); // Redirect to user dashboard
       }
     } catch (error) {
       setError('An error occurred');
-      console.error(error);
+      console.error('Login error:', error);
     }
   };
 
@@ -44,10 +50,10 @@ const Login: React.FC = () => {
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="formBasicEmail" className="mb-3">
-              <Form.Label>Email address</Form.Label>
+              <Form.Label>Username</Form.Label>
               <Form.Control
-                type="email"
-                placeholder="Enter email"
+                type="text"
+                placeholder="Enter username"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -70,7 +76,7 @@ const Login: React.FC = () => {
             </Button>
 
             <div className="text-center mt-3">
-              <Link to="/register">Create an account</Link> {/* Link to the registration page */}
+              <Link to="/register">Create an account</Link>
             </div>
           </Form>
         </Col>

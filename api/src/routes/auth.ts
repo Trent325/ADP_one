@@ -6,6 +6,7 @@ import User, { IUser } from '../models/User';
 const router = Router();
 
 // Login route
+// Login route
 router.post('/login', async (req: Request, res: Response) => {
   console.log('Received login request');
   const { username, password } = req.body;
@@ -33,12 +34,12 @@ router.post('/login', async (req: Request, res: Response) => {
 
     // Generate JWT
     console.log('Generating JWT...');
-    const token = jwt.sign({ id: user._id }, 'your_jwt_secret', {
+    const token = jwt.sign({ id: user._id, isAdmin: user.isAdmin }, 'your_jwt_secret', {
       expiresIn: '1h',
     });
     console.log('JWT generated:', token);
 
-    res.json({ token });
+    res.json({ token, isAdmin: user.isAdmin });
   } catch (error) {
     console.error('Error during login process:', error);
     res.status(500).send('Server error');

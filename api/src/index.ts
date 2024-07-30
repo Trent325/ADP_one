@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import connectDB from './services/db';
 import authRoutes from './routes/auth';
+import adminRoutes from './routes/admin'
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -20,6 +21,7 @@ app.get('/', (req: Request, res: Response) => {
 
 // Use auth routes
 app.use('/api/auth', authRoutes);
+app.use('/api/admin', adminRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

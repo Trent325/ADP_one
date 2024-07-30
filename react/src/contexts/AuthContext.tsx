@@ -1,7 +1,11 @@
-import React, { createContext, useState, useContext, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 interface AuthContextType {
-  isAuthenticated: boolean;
+  currentUser: {
+    id: string;
+    username: string;
+    isAdmin: boolean;
+  } | null;
   login: (token: string) => void;
   logout: () => void;
 }
@@ -9,20 +13,26 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [currentUser, setCurrentUser] = useState<AuthContextType['currentUser']>(null);
 
   const login = (token: string) => {
+    // Example: Decode the token to extract user info. This may vary depending on your token.
+    const userData = JSON.parse(atob(token.split('.')[1])); // Assuming JWT token
+    setCurrentUser({
+      id: userData.id,
+      username: userData.username,
+      isAdmin: userData.isAdmin,
+    });
     localStorage.setItem('token', token);
-    setIsAuthenticated(true);
   };
 
   const logout = () => {
+    setCurrentUser(null);
     localStorage.removeItem('token');
-    setIsAuthenticated(false);
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ currentUser, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
