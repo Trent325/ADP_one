@@ -1,30 +1,31 @@
 import React, { useState } from 'react';
 import { Form, Button, Container, Row, Col, Alert } from 'react-bootstrap';
-import { useAuth } from '../../contexts/AuthContext';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { useNavigate } from 'react-router-dom';
 
-const Login: React.FC = () => {
-  const [email, setEmail] = useState('');
+const Register: React.FC = () => {
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const { login } = useAuth();
+  const [success, setSuccess] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError('');
+    setSuccess('');
 
     try {
-      const response = await fetch('http://localhost:3000/api/auth/login', {
+      const response = await fetch('http://localhost:3000/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: email, password }),
+        body: JSON.stringify({ username, password }),
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        login(data.token);
-        window.location.href = '/Region'; // Redirect to the protected page
+        setSuccess('Account created successfully! You can now log in.');
+        navigate('/'); // Redirect to the login page
       } else {
         setError(data.message);
       }
@@ -38,16 +39,17 @@ const Login: React.FC = () => {
     <Container className='bg-white'>
       <Row className="justify-content-md-center">
         <Col md={6}>
-          <h2 className="text-center my-4">Login</h2>
+          <h2 className="text-center my-4">Register</h2>
           {error && <Alert variant="danger">{error}</Alert>}
+          {success && <Alert variant="success">{success}</Alert>}
           <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="formBasicEmail" className="mb-3">
-              <Form.Label>Email address</Form.Label>
+            <Form.Group controlId="formBasicUsername" className="mb-3">
+              <Form.Label>Username</Form.Label>
               <Form.Control
-                type="email"
-                placeholder="Enter email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                type="text"
+                placeholder="Enter username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 required
               />
             </Form.Group>
@@ -64,12 +66,8 @@ const Login: React.FC = () => {
             </Form.Group>
 
             <Button variant="primary" type="submit" className="w-100">
-              Login
+              Register
             </Button>
-
-            <div className="text-center mt-3">
-              <Link to="/register">Create an account</Link> {/* Link to the registration page */}
-            </div>
           </Form>
         </Col>
       </Row>
@@ -77,4 +75,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+export default Register;

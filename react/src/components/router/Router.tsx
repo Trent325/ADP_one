@@ -4,6 +4,7 @@ import AppNavbar from "../nav/NavBar";
 import RegionSelector from "../regionSelect/Selector";
 import { AuthProvider } from "../../contexts/AuthContext";
 import ProtectedRoute from "../auth/ProtectedRoute";
+import Register from "../login/Register";
 
 function AppRouter() {
   return (
@@ -13,6 +14,7 @@ function AppRouter() {
           <AppNavbar />
           <Routes>
             <Route path="/" element={<Login />} />
+            <Route path="/register" element={<Register />} />
             <Route
               path="/Region"
               element={<ProtectedRoute element={<RegionSelector />} />}
