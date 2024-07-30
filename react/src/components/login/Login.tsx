@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { Form, Button, Container, Row, Col, Alert } from 'react-bootstrap';
 import { useAuth } from '../../contexts/AuthContext';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { Link } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const { login } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -24,7 +26,7 @@ const Login: React.FC = () => {
 
       if (response.ok) {
         login(data.token);
-        window.location.href = '/Region'; // Redirect to the protected page
+        navigate('/Region'); // Redirect to the protected page
       } else {
         setError(data.message);
       }
