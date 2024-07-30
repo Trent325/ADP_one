@@ -20,8 +20,8 @@ const AdminDashboard: React.FC = () => {
         </Col>
       </Row>
 
-      <Row className="mb-4">
-        <Col md={3}>
+      <Row className="justify-content-center mb-4">
+        <Col md={3} className="d-flex justify-content-center">
           <Card className="mb-4 shadow-sm">
             <Card.Body>
               <Card.Title>Manage Users</Card.Title>
@@ -32,7 +32,7 @@ const AdminDashboard: React.FC = () => {
             </Card.Body>
           </Card>
         </Col>
-        <Col md={3}>
+        <Col md={3} className="d-flex justify-content-center">
           <Card className="mb-4 shadow-sm">
             <Card.Body>
               <Card.Title>System Reports</Card.Title>
@@ -43,33 +43,11 @@ const AdminDashboard: React.FC = () => {
             </Card.Body>
           </Card>
         </Col>
-        <Col md={3}>
-          <Card className="mb-4 shadow-sm">
-            <Card.Body>
-              <Card.Title>Settings</Card.Title>
-              <Card.Text>Configure system settings and preferences.</Card.Text>
-              <Link to="/admin/settings">
-                <Button variant="primary">Go to Settings</Button>
-              </Link>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col md={3}>
-          <Card className="mb-4 shadow-sm">
-            <Card.Body>
-              <Card.Title>Notifications</Card.Title>
-              <Card.Text>Manage and view system notifications.</Card.Text>
-              <Link to="/admin/notifications">
-                <Button variant="primary">View Notifications</Button>
-              </Link>
-            </Card.Body>
-          </Card>
-        </Col>
       </Row>
 
       <Row>
         <Col className="text-center">
-           <Button onClick={handleLogout} variant="danger">Logout</Button>
+          <Button onClick={handleLogout} variant="danger">Logout</Button>
         </Col>
       </Row>
     </Container>

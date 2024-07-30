@@ -14,4 +14,49 @@ router.get('/users', authMiddleware, adminMiddleware, async (req: Request, res: 
   }
 });
 
+// Add a new user
+router.post('/users', authMiddleware, adminMiddleware, async (req: Request, res: Response) => {
+  try {
+    const { username, password, isAdmin } = req.body;
+
+    if (!username || !password) {
+      return res.status(400).json({ message: 'Username and password are required' });
+    }
+
+    const newUser = new User({
+      username,
+      password, // Consider hashing the password before saving
+      isAdmin
+    });
+
+    await newUser.save();
+    res.status(201).json(newUser);
+  } catch (error) {
+    console.error('Error adding user:', error);
+    res.status(500).send('Server error');
+  }
+});
+
+// Delete a user
+router.delete('/users/:id', authMiddleware, adminMiddleware, async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    if (!id) {
+      return res.status(400).json({ message: 'User ID is required' });
+    }
+
+    const user = await User.findByIdAndDelete(id);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.json({ message: 'User deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting user:', error);
+    res.status(500).send('Server error');
+  }
+});
+
 export default router;

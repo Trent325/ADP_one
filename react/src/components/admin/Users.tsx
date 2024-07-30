@@ -1,9 +1,23 @@
-import React from "react";
-import { useAllUsers } from "../../hooks/admin/useGetUsers";
-import { Spinner, Alert, ListGroup } from "react-bootstrap";
+import React from 'react';
+import { Spinner, Alert, ListGroup, Button } from 'react-bootstrap';
+import { useAllUsers } from '../../hooks/admin/useGetUsers';
+import { useDeleteUser } from '../../hooks/admin/useDeleteUser';
+import AddUser from './AddUser';
 
 const AdminUsers: React.FC = () => {
-  const { data: users, error, isLoading } = useAllUsers();
+  const { data: users, error, isLoading, refetch } = useAllUsers();
+  const { mutate: deleteUser } = useDeleteUser();
+
+  const handleUserDeleted = (id: string) => {
+    deleteUser(id, {
+      onSuccess: () => {
+        refetch(); // Refetch the user list after deletion
+      },
+      onError: (error) => {
+        console.error('Error deleting user:', error);
+      },
+    });
+  };
 
   if (isLoading) {
     return (
@@ -22,11 +36,21 @@ const AdminUsers: React.FC = () => {
   }
 
   return (
-    <div>
-      <h2>All Users</h2>
+    <div className="container">
+      <h2 className="text-center mb-4">All Users</h2>
+      <AddUser />
       <ListGroup>
         {users.map((user: { id: string; username: string }) => (
-          <ListGroup.Item key={user.id}>{user.username}</ListGroup.Item>
+          <ListGroup.Item key={user.id}>
+            {user.username}
+            <Button
+              variant="danger"
+              onClick={() => handleUserDeleted(user.id)}
+              className="float-end"
+            >
+              Delete
+            </Button>
+          </ListGroup.Item>
         ))}
       </ListGroup>
     </div>
