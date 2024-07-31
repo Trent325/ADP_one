@@ -9,6 +9,9 @@ const AdminUsers: React.FC = () => {
   const { mutate: deleteUser } = useDeleteUser();
 
   const handleUserDeleted = (id: string) => {
+
+    console.log(id);
+
     deleteUser(id, {
       onSuccess: () => {
         refetch(); // Refetch the user list after deletion
@@ -40,12 +43,12 @@ const AdminUsers: React.FC = () => {
       <h2 className="text-center mb-4">All Users</h2>
       <AddUser />
       <ListGroup>
-        {users.map((user: { id: string; username: string }) => (
-          <ListGroup.Item key={user.id}>
+        {users.map((user: { _id: string; username: string }) => (
+          <ListGroup.Item key={user._id}>
             {user.username}
             <Button
               variant="danger"
-              onClick={() => handleUserDeleted(user.id)}
+              onClick={() => handleUserDeleted(user._id)}
               className="float-end"
             >
               Delete

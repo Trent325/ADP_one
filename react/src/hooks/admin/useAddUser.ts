@@ -1,7 +1,8 @@
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 
 export const useAddUser = () => {
   const token = localStorage.getItem('token') || '';
+  const queryClient = useQueryClient();
 
   return useMutation(
     async (newUser: { username: string; password: string; isAdmin: boolean }) => {
@@ -18,6 +19,10 @@ export const useAddUser = () => {
         throw new Error('Failed to add user');
       }
       return response.json();
+    }, {
+      onSuccess: ()=> {
+        queryClient.invalidateQueries("allUsers")
+      },
     }
   );
 };
