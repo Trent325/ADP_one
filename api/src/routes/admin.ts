@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express';
 import User from '../models/User';
 import { adminMiddleware, authMiddleware } from '../services/adminAuth';
+import bcrypt from 'bcryptjs';
 
 const router = Router();
 
@@ -55,6 +56,34 @@ router.delete('/users/:id', authMiddleware, adminMiddleware, async (req: Request
     res.json({ message: 'User deleted successfully' });
   } catch (error) {
     console.error('Error deleting user:', error);
+    res.status(500).send('Server error');
+  }
+});
+
+// Update a user
+router.put('/users/:id', authMiddleware, adminMiddleware, async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const { username, password, isAdmin } = req.body;
+
+    if (!id) {
+      return res.status(400).json({ message: 'User ID is required' });
+    }
+
+    const updateData: { [key: string]: any } = {};
+    if (username) updateData.username = username;
+    if (isAdmin !== undefined) updateData.isAdmin = isAdmin;
+    if (password) updateData.password = await bcrypt.hash(password, 10); // Hash the new password
+
+    const updatedUser = await User.findByIdAndUpdate(id, updateData, { new: true });
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.json(updatedUser);
+  } catch (error) {
+    console.error('Error updating user:', error);
     res.status(500).send('Server error');
   }
 });
