@@ -14,7 +14,6 @@ router.post('/login', async (req: Request, res: Response) => {
     // Find user by username
     const user: IUser | null = await User.findOne({ username });
     if (!user) {
-      console.log('User not found');
       return res.status(400).json({ message: 'Invalid credentials' });
     }
 

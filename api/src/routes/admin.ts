@@ -26,12 +26,13 @@ router.post('/users', authMiddleware, adminMiddleware, async (req: Request, res:
 
     const newUser = new User({
       username,
-      password, // Consider hashing the password before saving
+      password: await bcrypt.hash(password, 10), // Hash the password before saving
       isAdmin
     });
 
-    await newUser.save();
-    res.status(201).json(newUser);
+    const savedUser = await newUser.save();
+    const { password: _, ...userWithoutPassword } = savedUser.toObject(); // Exclude password from response
+    res.status(201).json(userWithoutPassword);
   } catch (error) {
     console.error('Error adding user:', error);
     res.status(500).send('Server error');
