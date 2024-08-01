@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1722524952771" clover="3.2.0">
-  <project timestamp="1722524952771" name="All files">
-    <metrics statements="99" coveredstatements="75" conditionals="13" coveredconditionals="7" methods="14" coveredmethods="12" elements="126" coveredelements="94" complexity="0" loc="99" ncloc="99" packages="2" files="4" classes="4"/>
+<coverage generated="1722526585533" clover="3.2.0">
+  <project timestamp="1722526585533" name="All files">
+    <metrics statements="99" coveredstatements="78" conditionals="13" coveredconditionals="7" methods="14" coveredmethods="14" elements="126" coveredelements="99" complexity="0" loc="99" ncloc="99" packages="2" files="4" classes="4"/>
     <package name="models">
       <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="LoginRecord.ts" path="C:\Users\trgre\Desktop\ADPone\ADP_one\api\src\models\LoginRecord.ts">
@@ -20,7 +20,7 @@
       </file>
     </package>
     <package name="routes">
-      <metrics statements="91" coveredstatements="67" conditionals="13" coveredconditionals="7" methods="14" coveredmethods="12"/>
+      <metrics statements="91" coveredstatements="70" conditionals="13" coveredconditionals="7" methods="14" coveredmethods="14"/>
       <file name="admin.ts" path="C:\Users\trgre\Desktop\ADPone\ADP_one\api\src\routes\admin.ts">
         <metrics statements="50" coveredstatements="37" conditionals="10" coveredconditionals="5" methods="8" coveredmethods="8"/>
         <line num="1" count="1" type="stmt"/>
@@ -75,7 +75,7 @@
         <line num="92" count="1" type="stmt"/>
       </file>
       <file name="auth.ts" path="C:\Users\trgre\Desktop\ADPone\ADP_one\api\src\routes\auth.ts">
-        <metrics statements="41" coveredstatements="30" conditionals="3" coveredconditionals="2" methods="6" coveredmethods="4"/>
+        <metrics statements="41" coveredstatements="33" conditionals="3" coveredconditionals="2" methods="6" coveredmethods="6"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -111,9 +111,9 @@
         <line num="63" count="0" type="stmt"/>
         <line num="64" count="0" type="stmt"/>
         <line num="68" count="1" type="stmt"/>
-        <line num="69" count="0" type="stmt"/>
-        <line num="70" count="0" type="stmt"/>
-        <line num="71" count="0" type="stmt"/>
+        <line num="69" count="1" type="stmt"/>
+        <line num="70" count="1" type="stmt"/>
+        <line num="71" count="1" type="stmt"/>
         <line num="73" count="0" type="stmt"/>
         <line num="74" count="0" type="stmt"/>
         <line num="78" count="1" type="stmt"/>

@@ -80,4 +80,11 @@ describe('Auth Routes', () => {
     expect(res.status).toBe(400);
     expect(res.body.message).toBe('Invalid credentials');
   });
+
+  it('should get a list of all logins', async () =>{
+    const res = await request(app)
+    .get('/api/auth/logins');
+
+    expect(res.status).toBe(200);
+  })
 });
