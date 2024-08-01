@@ -37,7 +37,7 @@ const AdminDashboard: React.FC = () => {
             <Card.Body>
               <Card.Title>System Reports</Card.Title>
               <Card.Text>Generate and view system reports.</Card.Text>
-              <Link to="/admin/reports">
+              <Link to="/admin-users-login">
                 <Button variant="primary">View Reports</Button>
               </Link>
             </Card.Body>

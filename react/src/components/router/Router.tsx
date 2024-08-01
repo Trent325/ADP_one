@@ -7,6 +7,7 @@ import ProtectedRoute from "../auth/ProtectedRoute";
 import Register from "../login/Register";
 import AdminDashboard from "../admin/Dashboard";
 import AdminUsers from "../admin/Users";
+import LoginRecords from "../admin/LoginList";
 
 function AppRouter() {
   return (
@@ -28,6 +29,10 @@ function AppRouter() {
              <Route
               path="/admin-users"
               element={<ProtectedRoute element={<AdminUsers />} adminOnly />}
+            />
+            <Route
+              path="/admin-users-login"
+              element={<ProtectedRoute element={<LoginRecords />} adminOnly />}
             />
           </Routes>
         </div>
