@@ -45,6 +45,8 @@ const RegionSelector: React.FC = () => {
     }
   };
 
+  console.log(weather);
+
   return (
     <Container className="mt-4">
       <h2>Select a New Jersey Ocean Region</h2>
@@ -89,7 +91,7 @@ const RegionSelector: React.FC = () => {
                   <strong>Wind:</strong> {weather.currentConditions.windspeed} m/s
                 </Card.Text>
                 <Card.Text>
-                  <strong>Precipitation:</strong> {weather.currentConditions.precipitation} mm
+                  <strong>Report:</strong> {weather.description} 
                 </Card.Text>
               </Card.Body>
             </Card>
