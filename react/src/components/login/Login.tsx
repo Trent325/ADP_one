@@ -38,7 +38,6 @@ const Login: React.FC = () => {
       }
     } catch (error) {
       setError('An error occurred');
-      console.error('Login error:', error);
     }
   };
 
