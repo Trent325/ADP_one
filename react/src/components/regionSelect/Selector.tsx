@@ -71,7 +71,7 @@ const RegionSelector: React.FC = () => {
         <>
           <Button
             variant="secondary"
-            className="mt-3"
+            className="mt-3 mb-2"
             onClick={() => {
               setConfirmedRegion(null);
               setSelectedRegion(null);
