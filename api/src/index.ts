@@ -2,6 +2,9 @@ import express, { Request, Response } from 'express';
 import connectDB from './services/db';
 import authRoutes from './routes/auth';
 import adminRoutes from './routes/admin'
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
